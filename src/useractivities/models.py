@@ -10,6 +10,33 @@ from django.db import models
 from usermedia.models import WithLike, WithComment, WithContentType
 
 
+class Post(WithComment, WithLike, models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        default=1
+    )
+
+    title = models.CharField(
+        u'Заголовок поста',
+        max_length=255
+    )
+
+    content = models.TextField(
+        u'Текст поста',
+        default=None
+    )
+
+    created_at = models.DateTimeField(
+        u'Создан',
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        u'Обновлен',
+        auto_now=True
+    )
+
+
 class Comment(WithLike, models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
