@@ -47,7 +47,7 @@ class Album(models.Model):
         auto_now_add=True
     )
 
-    description = models.CharField(
+    name = models.CharField(
         u'Название',
         max_length=40,
         default=None

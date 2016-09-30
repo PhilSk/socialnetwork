@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from extuser.models import ExtUser
 
-from useractivities.models import Event
+from useractivities.models import Event, Like, Comment
+
+from usermedia.models import Album, Photo
+
+from friendship.models import Friendship
+
+from chat.models import Chat, Message
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,3 +20,45 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         fields = ('creator', 'name', 'content_type')
+
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('title', 'content', 'created_at', 'updated_at', 'content_type', 'object_id')
+
+
+class LikeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Like
+        fields = ('user', 'content_type', 'object_id')
+
+
+class AlbumSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('user', 'name', 'description', 'created_at')
+
+
+class PhotoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ('album', 'preview', 'description', 'added_at', 'photo', 'count_likes', 'count_comments')
+
+
+class FriendshipSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Friendship
+        fields = ('sender', 'receiver', 'sender_state', 'receiver_state')
+
+
+class ChatSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('name', 'members', 'created_at', 'updated_at')
+
+
+class MessageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('author', 'chat', 'text', 'created_at', 'updated_at')

@@ -26,7 +26,29 @@ from extuser.models import ExtUser
 # ViewSets define the view behavior.
 from application.serializers import UserSerializer
 
-from useractivities.models import Event
+from application.serializers import CommentSerializer
+
+from application.serializers import LikeSerializer
+
+from application.serializers import EventSerializer
+
+from application.serializers import AlbumSerializer
+
+from application.serializers import PhotoSerializer
+
+from application.serializers import FriendshipSerializer
+
+from application.serializers import ChatSerializer
+
+from application.serializers import MessageSerializer
+
+from useractivities.models import Event, Comment, Like
+
+from chat.models import Message, Chat
+
+from friendship.models import Friendship
+
+from usermedia.models import Photo, Album
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -36,13 +58,49 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = EventSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class LikeViewSet(viewsets.ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+
+
+class AlbumViewSet(viewsets.ModelViewSet):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
+
+
+class PhotoViewSet(viewsets.ModelViewSet):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+
+
+class FriendshipViewSet(viewsets.ModelViewSet):
+    queryset = Friendship.objects.all()
+    serializer_class = FriendshipSerializer
+
+
+class ChatViewSet(viewsets.ModelViewSet):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+
+
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'events', EventViewSet)
+router.register(r'comments', EventViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
