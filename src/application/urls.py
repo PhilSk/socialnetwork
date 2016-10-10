@@ -50,6 +50,8 @@ from friendship.models import Friendship
 
 from usermedia.models import Photo, Album
 
+from pages.views import custom_login
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = ExtUser.objects.all()
@@ -107,6 +109,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^login/', ),
-
+    url(r'^login/$', custom_login, {'template_name': 'pages/login.html', 'extra_context': {'next': '/'}},
+        name="login"),
 ]
