@@ -1,8 +1,8 @@
 
 *.pyc
 
-settings.py
-src/+/migrations/
+local_settings.py
+src/*/migrations/
 
 *.json
 
@@ -11,3 +11,4 @@ src/+/migrations/
 collected_static/
 media/
 env/
+src/static/
