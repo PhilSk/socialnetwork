@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -27,6 +26,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = (
+    'social.backends.vk.VKOAuth2',
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+# Oauth2 and social auth!
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email', ]
+SOCIAL_AUTH_VK_OAUTH2_EXTRA_DATA = ['email', ]
+SOCIAL_AUTH_VK_OAUTH2_KEY = '5664630'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'BwKS6oDpoqxl069C5L58'
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -40,7 +51,6 @@ MY_APPS = [
     'pages',
 ]
 
-
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +58,9 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
+    'provider',
+    'oauth2_provider',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
@@ -90,7 +103,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'application.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -100,7 +112,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -120,7 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -134,16 +144,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-f..
-
-STATIC_URL = '/static/'
-STATIC_ROOT = '/home/dmitriy/MyEnv/DjangoProjects/socialnetwork/collected_static/'
-STATICFILES_DIRS = ('/home/dmitriy/MyEnv/DjangoProjects/socialnetwork/src/static/',)
-
-# All media files such as avatar will be here
-MEDIA_ROOT = '/home/dmitriy/MyEnv/DjangoProjects/socialnetwork/media/'
+from local_settings import *
 
 # My user model
 AUTH_USER_MODEL = 'extuser.ExtUser'

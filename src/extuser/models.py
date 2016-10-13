@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import UserManager, BaseUserManager
 
 from django.db import models
 
@@ -12,8 +12,8 @@ from django.db import models
 from usermedia.models import Photo
 
 
-class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+class MyUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError(u'Email непременно должен быть указан')
 
@@ -93,7 +93,7 @@ class ExtUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = UserManager()
+    objects = MyUserManager()
 
     class Meta:
         verbose_name = u'Пользователь'

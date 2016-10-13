@@ -24,6 +24,8 @@
 </tr>
 </table>
 
+    <a href="{% url 'social:begin' 'vk-oauth2' %}" class="button">Login via VK</a>
+
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
