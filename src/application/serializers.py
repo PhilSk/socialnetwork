@@ -9,6 +9,8 @@ from friendship.models import Friendship
 
 from chat.models import Chat, Message
 
+from useractivities.models import Post
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -52,13 +54,21 @@ class FriendshipSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('sender', 'receiver', 'sender_state', 'receiver_state')
 
 
-class ChatSerializer(serializers.HyperlinkedModelSerializer):
+class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = ('name', 'members', 'created_at', 'updated_at')
 
 
-class MessageSerializer(serializers.HyperlinkedModelSerializer):
+class MessageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chat
+        model = Message
         fields = ('author', 'chat', 'text', 'created_at', 'updated_at')
+
+
+class PostSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.id')
+
+    class Meta:
+        model = Post
+        fields = ('user', 'title', 'content', 'created_at', 'updated_at')

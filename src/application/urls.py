@@ -38,19 +38,17 @@ from application.serializers import PhotoSerializer
 
 from application.serializers import FriendshipSerializer
 
-from application.serializers import ChatSerializer
-
-from application.serializers import MessageSerializer
-
 from useractivities.models import Event, Comment, Like
-
-from chat.models import Message, Chat
 
 from friendship.models import Friendship
 
 from usermedia.models import Photo, Album
 
 from pages.views import custom_login
+
+from useractivities.views import PostViewSet
+
+from chat.views import ChatViewSet, MessageViewSet
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -88,21 +86,14 @@ class FriendshipViewSet(viewsets.ModelViewSet):
     serializer_class = FriendshipSerializer
 
 
-class ChatViewSet(viewsets.ModelViewSet):
-    queryset = Chat.objects.all()
-    serializer_class = ChatSerializer
-
-
-class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializer
-
-
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'events', EventViewSet)
-router.register(r'comments', EventViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'chats', ChatViewSet)
+router.register(r'messages', MessageViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
