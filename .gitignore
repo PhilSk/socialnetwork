@@ -1,8 +1,9 @@
 
 *.pyc
-
+*.sqlite3
 local_settings.py
 src/*/migrations/
+.idea/
 
 *.json
 
