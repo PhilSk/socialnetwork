@@ -15,7 +15,7 @@ from useractivities.models import Post
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExtUser
-        fields = ('firstname', 'lastname', 'email', 'is_staff')
+        fields = ('pk', 'firstname', 'lastname', 'email', 'is_staff')
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
@@ -63,7 +63,7 @@ class ChatSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ('author', 'chat', 'text', 'created_at', 'updated_at')
+        fields = ('pk', 'author', 'chat', 'text', 'created_at', 'updated_at')
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -71,4 +71,4 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('user', 'title', 'content', 'created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'created_at', 'updated_at')

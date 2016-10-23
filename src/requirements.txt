@@ -18,3 +18,5 @@ requests==2.11.1
 requests-oauthlib==0.7.0
 shortuuid==0.4.3
 six==1.10.0
+django-bootstrap-form==3.2.1
+

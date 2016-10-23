@@ -61,6 +61,7 @@ DJANGO_APPS = [
     'social.apps.django_app.default',
     'provider',
     'oauth2_provider',
+    'bootstrapform',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
