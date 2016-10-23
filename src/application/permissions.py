@@ -20,4 +20,5 @@ class IsOwner(permissions.BasePermission):
 class IsInChat(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if 'members' in dir(obj):
-            return request.user in obj.members
+            return obj.members.filter(id=request.user.id).exists()
+
