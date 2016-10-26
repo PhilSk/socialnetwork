@@ -37,6 +37,7 @@ from application.serializers import AlbumSerializer
 from application.serializers import PhotoSerializer
 
 from application.serializers import FriendshipSerializer
+from extuser.views import UserViewSet
 from friendship.views import FriendshipViewSet
 
 from useractivities.models import Event, Comment, Like
@@ -52,11 +53,6 @@ from useractivities.views import PostViewSet
 from chat.views import ChatViewSet, MessageViewSet
 
 from pages.views import IndexView
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = ExtUser.objects.all()
-    serializer_class = UserSerializer
 
 
 class EventViewSet(viewsets.ModelViewSet):

@@ -15,7 +15,7 @@ from useractivities.models import Post
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExtUser
-        fields = ('pk', 'firstname', 'lastname', 'email', 'is_staff')
+        fields = ('pk', 'friends', 'firstname', 'lastname', 'email', 'is_staff')
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
@@ -51,7 +51,7 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
 class FriendshipSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Friendship
-        fields = ('sender', 'receiver', 'sender_state', 'receiver_state')
+        fields = ('sender', 'receiver')
 
 
 class ChatSerializer(serializers.ModelSerializer):

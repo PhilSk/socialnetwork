@@ -10,6 +10,7 @@ from django.db import models
 
 # Create your models here.
 from usermedia.models import Photo
+from friendship.models import Friendship
 
 
 class MyUserManager(BaseUserManager):
@@ -34,6 +35,13 @@ class MyUserManager(BaseUserManager):
 
 
 class ExtUser(AbstractBaseUser, PermissionsMixin):
+    friends = models.ManyToManyField(
+        'self',
+        through=Friendship,
+        symmetrical=False,
+        related_name="related_to+"
+    )
+
     email = models.EmailField(
         u'Электронная почта',
         max_length=255,
@@ -74,6 +82,28 @@ class ExtUser(AbstractBaseUser, PermissionsMixin):
         'Суперпользователь',
         default=False
     )
+
+    def add_friendship(self, user, symm=True):
+        friendship, created = Friendship.objects.get_or_create(
+            sender=self,
+            receiver=user
+        )
+        if symm:
+            # avoid recursion by passing `symm=False`
+            user.add_friendship(self, False)
+        return friendship
+
+    def remove_friendship(self, user, symm=True):
+        Friendship.objects.filter(
+            sender=self,
+            receiver=user
+        ).delete()
+        if symm:
+            # avoid recursion by passing `symm=False`
+            user.remove_relationship(self, False)
+
+    def get_friendships(self, status):
+        return self.friendships.filter(sender=self)
 
     # Этот метод обязательно должен быть определён
     def get_full_name(self):

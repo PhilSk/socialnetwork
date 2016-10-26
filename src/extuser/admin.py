@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
+from friendship.admin import FriendshipInline
 from .forms import UserChangeForm
 from .forms import UserCreationForm
 from .models import ExtUser
@@ -11,6 +12,7 @@ from .models import ExtUser
 class UserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
+    inlines = [FriendshipInline]
 
     list_display = [
         'email',

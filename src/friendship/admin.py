@@ -4,4 +4,9 @@ from django.contrib import admin
 from models import Friendship
 
 
+class FriendshipInline(admin.StackedInline):
+    model = Friendship
+    fk_name = 'sender'
+
+
 admin.site.register(Friendship)

@@ -11,6 +11,3 @@ class FriendshipViewSet(viewsets.ModelViewSet):
     serializer_class = FriendshipSerializer
     queryset = Friendship.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(sender=self.request.user)
