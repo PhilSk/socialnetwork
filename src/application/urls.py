@@ -37,6 +37,7 @@ from application.serializers import AlbumSerializer
 from application.serializers import PhotoSerializer
 
 from application.serializers import FriendshipSerializer
+from friendship.views import FriendshipViewSet
 
 from useractivities.models import Event, Comment, Like
 
@@ -83,11 +84,6 @@ class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
 
 
-class FriendshipViewSet(viewsets.ModelViewSet):
-    queryset = Friendship.objects.all()
-    serializer_class = FriendshipSerializer
-
-
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -96,6 +92,7 @@ router.register(r'comments', CommentViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'chats', ChatViewSet)
 router.register(r'messages', MessageViewSet)
+router.register(r'friendship', FriendshipViewSet)
 
 urlpatterns = [
     url(r'^login/$', custom_login, {'template_name': 'pages/login.html', 'extra_context': {'next': '/'}},

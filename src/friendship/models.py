@@ -27,8 +27,11 @@ class Friendship(models.Model):
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='receiver')
 
     sender_state = models.BooleanField(
-        default=Statements.declined
+        default=Statements.accepted
     )
     receiver_state = models.BooleanField(
         default=Statements.declined
     )
+
+    class Meta:
+        unique_together = ("sender", "receiver")

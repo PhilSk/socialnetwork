@@ -1,5 +1,5 @@
 var config = {
-    container: document.getElementsByClassName('b-wall')[0],
+    container: document.getElementById("content")
 };
 
 class PostList extends React.Component {
