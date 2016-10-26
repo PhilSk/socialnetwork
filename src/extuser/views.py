@@ -13,3 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(sender=self.request.user)
         serializer.save(sender=serializer.data.receiver, receiver=self.request.user)
+
+
+def profile(request):
+    return render(request, 'extuser/profile.html')

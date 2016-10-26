@@ -12,43 +12,43 @@ from chat.models import Chat, Message
 from useractivities.models import Post
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtUser
-        fields = ('pk', 'friends', 'firstname', 'lastname', 'email', 'is_staff')
+        fields = ('pk', 'avatar', 'friends', 'firstname', 'lastname', 'email', 'is_staff')
 
 
-class EventSerializer(serializers.HyperlinkedModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('creator', 'name', 'content_type')
 
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('title', 'content', 'created_at', 'updated_at', 'content_type', 'object_id')
 
 
-class LikeSerializer(serializers.HyperlinkedModelSerializer):
+class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = ('user', 'content_type', 'object_id')
 
 
-class AlbumSerializer(serializers.HyperlinkedModelSerializer):
+class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = ('user', 'name', 'description', 'created_at')
 
 
-class PhotoSerializer(serializers.HyperlinkedModelSerializer):
+class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ('album', 'preview', 'description', 'added_at', 'photo', 'count_likes', 'count_comments')
 
 
-class FriendshipSerializer(serializers.HyperlinkedModelSerializer):
+class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friendship
         fields = ('sender', 'receiver')

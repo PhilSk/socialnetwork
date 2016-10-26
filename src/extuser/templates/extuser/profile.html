@@ -1,0 +1,18 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+<h1>
+    Enjoy your profile page!
+</h1>
+
+<div id="content">
+
+</div>
+{% endblock %}
+
+{% block specify_app %}
+<script type="text/babel" src="/static/profile.jsx"></script>
+<script type="text/babel">
+    ReactDOM.render(<Root currentUserId={ {{ user.id }} } />, config.container);
+</script>
+{% endblock %}
