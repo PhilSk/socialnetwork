@@ -11,4 +11,3 @@ local_settings.py
 collected_static/
 media/
 env/
-src/static/
