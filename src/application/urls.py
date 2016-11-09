@@ -98,7 +98,7 @@ router.register(r'chats', ChatViewSet)
 router.register(r'messages', MessageViewSet)
 
 urlpatterns = [
-    url(r'^login/$', custom_login, {'template_name': 'pages/login.html', 'extra_context': {'next': '/'}},
+    url(r'^accounts/login/$', custom_login, {'template_name': 'pages/login.html'},
         name="login"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),

@@ -1,1 +1,0 @@
-{"access_token": "9cEAJIMOcCYAzXgOjQDte90Kz1BJg4", "token_type": "Bearer", "expires_in": 36000, "refresh_token": "HEXW5VNxaSYrdp1sGic9VBC1GTNOgH", "scope": "read write groups"}

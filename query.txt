@@ -1,5 +1,1 @@
-curl -X POST -d "grant_type=password&username=a@mail.ru&password=123" -u"id:secret" http://localhost:8000/o/token/
-
-curl -H "Authorization: Bearer A64qteCcrZGhuBK7aCai4NQlaaREZM" http://localhost:8000/api/users/
-
-curl -v --data "grant_type=refresh_token&client_id=id&refresh_token=fJXJzyour7NXZVkVTKZhNS7nf7QoOA" http://localhost:8000/o/token/
+http://localhost:8000/o/authorize/?response_type=token&client_id=id&redirect_uri=http://example.com - вот такой запрос
