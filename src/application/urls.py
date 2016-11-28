@@ -67,7 +67,7 @@ router.register(r'photos', PhotoViewSet)
 router.register(r'albums', AlbumViewSet)
 
 urlpatterns = [
-    url(r'^login/$', custom_login, {'template_name': 'pages/login.html', 'extra_context': {'next': '/'}},
+    url(r'^accounts/login/$', custom_login, {'template_name': 'pages/login.html'},
         name="login"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),

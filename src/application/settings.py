@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.vk.VKOAuth2',
+    'oauth2_provider.backends.OAuth2Backend',
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -61,16 +62,22 @@ DJANGO_APPS = [
     'social.apps.django_app.default',
     'provider',
     'oauth2_provider',
+    'corsheaders',
     'bootstrapform',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
 
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
 
@@ -82,7 +89,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'application.urls'
 

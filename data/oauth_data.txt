@@ -1,0 +1,2 @@
+client_id = uUz8UNDYxokrAiLrQlbJ6AhrrDAE9GmnkapTigBB
+client_secret = oR7y3yR311rQHn99caev7mEUYbQUMd93UdG8jEOFS9Ky4Aqg1UwMh4IFNqJg1WbTtdlaRmJ93nPfLs7or5jLrd4YAYCkqzjCfRWyTZppWnPwGhn9wYlHRkL18oXJKcHW

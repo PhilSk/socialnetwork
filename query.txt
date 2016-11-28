@@ -1,0 +1,1 @@
+http://localhost:8000/o/authorize/?response_type=token&client_id=id&redirect_uri=http://example.com - вот такой запрос
