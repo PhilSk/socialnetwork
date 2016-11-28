@@ -66,6 +66,7 @@ router.register(r'messages', MessageViewSet)
 router.register(r'friendship', FriendshipViewSet)
 router.register(r'photos', PhotoViewSet)
 router.register(r'albums', AlbumViewSet)
+router.register(r'likes', LikeViewSet)
 
 urlpatterns = [
     url(r'^accounts/login/$', custom_login, {'template_name': 'pages/login.html'},

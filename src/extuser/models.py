@@ -35,7 +35,7 @@ class MyUserManager(BaseUserManager):
 
 
 class ExtUser(AbstractBaseUser, PermissionsMixin):
-    friends = models.ManyToManyField(
+    friendships = models.ManyToManyField(
         'self',
         through=Friendship,
         symmetrical=False,
@@ -102,8 +102,8 @@ class ExtUser(AbstractBaseUser, PermissionsMixin):
             # avoid recursion by passing `symm=False`
             user.remove_relationship(self, False)
 
-    def get_friendships(self, status):
-        return self.friendships.filter(sender=self)
+    def get_friendships(self):
+        return self.friendships.filter(sender=self.id)
 
     # Этот метод обязательно должен быть определён
     def get_full_name(self):

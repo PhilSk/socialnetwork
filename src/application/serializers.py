@@ -27,7 +27,7 @@ class EventSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ('title', 'content', 'created_at', 'updated_at', 'content_type', 'object_id')
+        fields = ('content', 'created_at', 'updated_at', 'content_type', 'object_id')
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -71,4 +71,4 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('pk', 'user', 'title', 'content', 'created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'created_at', 'updated_at', 'count_likes', 'count_comments')
