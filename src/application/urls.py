@@ -37,6 +37,7 @@ from useractivities.views import PostViewSet
 
 from chat.views import ChatViewSet, MessageViewSet
 from usermedia.views import PhotoViewSet, AlbumViewSet
+from django.contrib.auth.views import logout
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -76,4 +77,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url('^social/', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^logout/$', logout, {'next_page': 'login'}, name="logout"),
 ]
