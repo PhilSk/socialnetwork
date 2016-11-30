@@ -10,10 +10,10 @@ class Feed extends React.Component {
 
     componentWillMount() {
         let _this = this;
-        fetch('/api/posts/', {credentials: 'include'}).then(function (response) {
+        fetch('/api/events/', {credentials: 'include'}).then(function (response) {
             console.log(response);
             response.json().then(function (data) {
-                console.log("Fetched posts");
+                console.log("Fetched events");
                 console.log(data);
                 _this.setState({objects: data});
             })
@@ -23,23 +23,22 @@ class Feed extends React.Component {
     }
 
     render() {
-        var postList = this.state.objects;
-        var func = postList.map(
+        var eventList = this.state.objects;
+        var show_events = eventList.map(
             function(item, index) {
             return(
-                <div key={item.pk} >
-                    <h3>{item.title}</h3>
-                    <p>
-                        {item.content}
-                    </p>
-                </div>
+                <li key={item.pk} >
+                    {item.name}
+                </li>
             )
         });
         return (
             <div>
-                <h3>Посты в твоей ленте от твоих друзей</h3>
-                <div className="posts">
-                        {func}
+                <h2 className="h1">Лента</h2>
+                <div className="events">
+                    <ul>
+                        {show_events}
+                    </ul>
                 </div>
             </div>
         );
@@ -71,23 +70,27 @@ class Personal extends React.Component {
     render() {
         return (
             <div>
-                <div className="name">
-                    <h2>
-                        { this.state.objects['firstname'] } { this.state.objects['lastname'] }
-                    </h2>
-                    <div className="email">
-                        <p>Ваш email {this.state.objects['email']} </p>
+                <div className="col-xs-4">
+                    <div className="name">
+                        <h1>
+                            { this.state.objects['firstname'] } { this.state.objects['lastname'] }
+                        </h1>
+                        <div className="email">
+                            <p>Ваш email {this.state.objects['email']} </p>
+                        </div>
+                    </div>
+                    <div className="friends">
+                        <h3>
+                            Твои друзья: {this.state.objects['friendships']}
+                        </h3>
                     </div>
                 </div>
-                <div className="friends">
-                    <h3>
-                        Твои друзья: { this.state.objects['friends'] }
-                    </h3>
-                </div>
-                <div className="feed">
-                    <h3>
-                        <Feed />
-                    </h3>
+                <div className="col-xs-8">
+                    <div className="feed">
+                        <h3>
+                            <Feed />
+                        </h3>
+                    </div>
                 </div>
             </div>
         );

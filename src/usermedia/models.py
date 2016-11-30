@@ -5,35 +5,8 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-
 # Create your models here.
-
-class WithContentType(models.Model):
-    def get_content_type(self):
-        return ContentType.objects.get_for_model(self).id
-
-    class Meta:
-        abstract = True
-
-
-class WithComment(models.Model):
-    count_comments = models.PositiveIntegerField(
-        u'Число комментариев',
-        default=0
-    )
-
-    class Meta:
-        abstract = True
-
-
-class WithLike(models.Model):
-    count_likes = models.PositiveIntegerField(
-        u'Число лайков',
-        default=0
-    )
-
-    class Meta:
-        abstract = True
+from useractivities.models import BaseEvent, WithLike, WithComment
 
 
 class Album(models.Model):
@@ -65,7 +38,8 @@ def upload_photos(obj, filename):
     return to
 
 
-class Photo(WithContentType, WithLike, WithComment, models.Model):
+class Photo(BaseEvent, WithLike, WithComment):
+    user = None
     album = models.ForeignKey(Album)
 
     preview = models.BooleanField(
@@ -90,3 +64,15 @@ class Photo(WithContentType, WithLike, WithComment, models.Model):
         null=True,
         upload_to=upload_photos
     )
+
+    class Meta:
+        verbose_name = u'Фото'
+        verbose_name_plural = u'Фото'
+        abstract = False
+
+    def get_event_name(self):
+        return "%s %s добавил новую фотографию в альбом %s " % (
+            self.album.user.firstname, self.album.user.lastname, self.album.name)
+
+    def get_event_author(self):
+        return self.album.user

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from extuser.models import ExtUser
 
-from useractivities.models import Event, Like, Comment
+from useractivities.models import Event, Like, Comment, Birthday, Meeting
 
 from usermedia.models import Album, Photo
 
@@ -15,13 +15,13 @@ from useractivities.models import Post
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtUser
-        fields = ('pk', 'avatar', 'friends', 'firstname', 'lastname', 'email', 'is_staff')
+        fields = ('pk', 'avatar', 'friendships', 'firstname', 'lastname', 'email', 'is_staff')
 
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('creator', 'name', 'content_type')
+        fields = ('user', 'name', 'users_to_show', 'content_type')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -72,3 +72,17 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('pk', 'user', 'title', 'content', 'created_at', 'updated_at', 'count_likes', 'count_comments')
+
+
+class BirthdaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Birthday
+        fields = ('pk', 'user', 'when')
+
+
+class MeetingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meeting
+        fields = ('pk', 'user', 'participants', 'description', 'duration', 'when')
+
+

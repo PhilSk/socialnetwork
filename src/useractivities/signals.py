@@ -20,9 +20,9 @@ def base_event_post_save(sender, **kwargs):
         from useractivities.models import Event
         event = Event()
         event.name = instance.get_event_name()
-        event.creator = instance.get_event_author()
+        event.user = instance.get_event_author()
         event.object_id = instance.id
-        event.content_type = instance.content_type
+        event.content_type = instance.get_content_type()
         event.save()
-        event.users_to_show = event.creator.get_friendships()
+        event.users_to_show = event.user.get_friendships()
         event.save()

@@ -103,7 +103,7 @@ class ExtUser(AbstractBaseUser, PermissionsMixin):
             user.remove_relationship(self, False)
 
     def get_friendships(self):
-        return self.friendships.filter(sender=self.id)
+        return self.friendships.all()
 
     # Этот метод обязательно должен быть определён
     def get_full_name(self):

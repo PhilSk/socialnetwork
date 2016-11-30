@@ -9,7 +9,34 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 from useractivities.signals import base_event_post_save, like_up, comment_up
-from usermedia.models import WithLike, WithComment, WithContentType
+
+
+class WithContentType(models.Model):
+    def get_content_type(self):
+        return ContentType.objects.get_for_model(self)
+
+    class Meta:
+        abstract = True
+
+
+class WithComment(models.Model):
+    count_comments = models.PositiveIntegerField(
+        u'Число комментариев',
+        default=0
+    )
+
+    class Meta:
+        abstract = True
+
+
+class WithLike(models.Model):
+    count_likes = models.PositiveIntegerField(
+        u'Число лайков',
+        default=0
+    )
+
+    class Meta:
+        abstract = True
 
 
 class Like(models.Model):
@@ -27,7 +54,7 @@ class Like(models.Model):
         verbose_name_plural = u'Лайки'
 
 
-class BaseEvent(models.Model):
+class BaseEvent(WithContentType, models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         default=1
@@ -105,7 +132,7 @@ class Comment(BaseEvent, WithLike):
         abstract = False
 
     def get_event_name(self):
-        return "Новый комментарий"
+        return "%s %s оставил новый комментарий" % (self.user.firstname, self.user.lastname)
 
     def get_event_author(self):
         return self.user
@@ -138,13 +165,13 @@ class Meeting(BaseEvent):
         abstract = False
 
     def get_event_name(self):
-        return self.description[100:] + "..."
+        return "Вы приглашены на новую встречу: " + self.description[100:] + "..."
 
     def get_event_author(self):
         return self.user
 
 
-class Birthday(BaseEvent):
+class Birthday(models.Model):
     when = models.DateTimeField(
         u'Когда',
         default=None
@@ -155,18 +182,12 @@ class Birthday(BaseEvent):
         verbose_name_plural = u'Дни рождения'
         abstract = False
 
-    def get_event_name(self):
-        return "Сегодня день рождения у %d" % self.user
-
-    def get_event_author(self):
-        return self.user
-
 
 class Event(models.Model):
-    creator = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         default=1,
-        related_name="creator"
+        related_name="created_events"
     )
 
     name = models.CharField(
@@ -178,6 +199,11 @@ class Event(models.Model):
         settings.AUTH_USER_MODEL
     )
 
+    created_at = models.DateTimeField(
+        u'Создано',
+        auto_now_add=True
+    )
+
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -185,6 +211,7 @@ class Event(models.Model):
     class Meta:
         verbose_name = u'Событие'
         verbose_name_plural = u'События'
+        ordering = ['created_at']
 
 post_save.connect(comment_up, sender=Comment, dispatch_uid="comment_up")
 post_save.connect(like_up, sender=Like, dispatch_uid="like_up")

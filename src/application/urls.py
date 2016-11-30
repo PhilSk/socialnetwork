@@ -18,42 +18,16 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework import routers, serializers, viewsets
 
-from application.serializers import CommentSerializer
-
-from application.serializers import LikeSerializer
-
-from application.serializers import EventSerializer
-
 from extuser.views import UserViewSet
 from friendship.views import FriendshipViewSet
 
-from useractivities.models import Event, Comment, Like
-
-from usermedia.models import Photo, Album
-
 from pages.views import custom_login, index
 
-from useractivities.views import PostViewSet
+from useractivities.views import PostViewSet, EventViewSet, CommentViewSet, LikeViewSet, BirthdayViewSet, MeetingViewSet
 
 from chat.views import ChatViewSet, MessageViewSet
 from usermedia.views import PhotoViewSet, AlbumViewSet
 from django.contrib.auth.views import logout
-
-
-class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-
-
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-
-class LikeViewSet(viewsets.ModelViewSet):
-    queryset = Like.objects.all()
-    serializer_class = LikeSerializer
-
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -63,10 +37,12 @@ router.register(r'comments', CommentViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'chats', ChatViewSet)
 router.register(r'messages', MessageViewSet)
-router.register(r'friendship', FriendshipViewSet)
+router.register(r'friendships', FriendshipViewSet)
 router.register(r'photos', PhotoViewSet)
 router.register(r'albums', AlbumViewSet)
 router.register(r'likes', LikeViewSet)
+router.register(r'birthdays', BirthdayViewSet)
+router.register(r'meetings', MeetingViewSet)
 
 urlpatterns = [
     url(r'^accounts/login/$', custom_login, {'template_name': 'pages/login.html'},
