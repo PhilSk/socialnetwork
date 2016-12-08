@@ -27,7 +27,7 @@ class Feed extends React.Component {
         var show_events = eventList.map(
             function(item, index) {
             return(
-                <li key={item.pk} >
+                <li key={item.id} >
                     {item.name}
                 </li>
             )
@@ -49,7 +49,7 @@ class Personal extends React.Component {
 
     state = {
         currentUserId: this.props.currentUserId,
-        objects: []
+        objects: {}
     };
 
     componentWillMount() {
@@ -68,20 +68,30 @@ class Personal extends React.Component {
     }
 
     render() {
+        var objs = this.state.objects;
+        var friendships = objs["friendships"] || [];
+        var fnc = friendships.map(
+            function(item, index) {
+                return (
+                    <li key={"xyz" + index}>
+                        <a href="{item}">abc</a>
+                    </li>
+                )
+            });
         return (
             <div>
                 <div className="col-xs-4">
                     <div className="name">
                         <h1>
-                            { this.state.objects['firstname'] } { this.state.objects['lastname'] }
+                            { objs['firstname'] } { objs['lastname'] }
                         </h1>
                         <div className="email">
-                            <p>Ваш email {this.state.objects['email']} </p>
+                            <p>Ваш email {objs['email']} </p>
                         </div>
                     </div>
                     <div className="friends">
                         <h3>
-                            Твои друзья: {this.state.objects['friendships']}
+                            Твои друзья: { fnc }
                         </h3>
                     </div>
                 </div>

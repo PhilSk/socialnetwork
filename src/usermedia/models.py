@@ -58,11 +58,9 @@ class Photo(BaseEvent, WithLike, WithComment):
         auto_now_add=True
     )
 
-    photo = models.ImageField(
-        u'Фотография',
-        blank=True,
-        null=True,
-        upload_to=upload_photos
+    photo = models.FileField(
+        upload_to=upload_photos,
+        default=''
     )
 
     class Meta:

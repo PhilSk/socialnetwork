@@ -7,8 +7,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import post_save
 
+
 # Create your models here.
-from useractivities.signals import base_event_post_save, like_up, comment_up
+from useractivities.signals import like_up, comment_up
 
 
 class WithContentType(models.Model):
@@ -215,6 +216,3 @@ class Event(models.Model):
 
 post_save.connect(comment_up, sender=Comment, dispatch_uid="comment_up")
 post_save.connect(like_up, sender=Like, dispatch_uid="like_up")
-
-for model in BaseEvent.__subclasses__():
-    post_save.connect(base_event_post_save, sender=model, dispatch_uid=model.__name__ + " event signal")

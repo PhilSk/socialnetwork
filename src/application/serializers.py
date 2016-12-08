@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework import serializers
 from extuser.models import ExtUser
 
@@ -12,7 +13,7 @@ from chat.models import Chat, Message
 from useractivities.models import Post
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExtUser
         fields = ('pk', 'avatar', 'friendships', 'firstname', 'lastname', 'email', 'is_staff')
@@ -21,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('user', 'name', 'users_to_show', 'content_type')
+        fields = ('id', 'user', 'name', 'users_to_show', 'content_type')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -51,7 +52,7 @@ class PhotoSerializer(serializers.ModelSerializer):
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friendship
-        fields = ('sender', 'receiver')
+        fields = ('id', 'sender', 'receiver')
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -84,5 +85,3 @@ class MeetingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meeting
         fields = ('pk', 'user', 'participants', 'description', 'duration', 'when')
-
-

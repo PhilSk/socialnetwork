@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 
 # Create your views here.
@@ -23,7 +24,7 @@ class PostViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=unicode(self.request.user))
 
 
 class EventViewSet(viewsets.ModelViewSet):

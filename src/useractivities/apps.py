@@ -8,3 +8,4 @@ class UseractivitiesConfig(AppConfig):
 
     def ready(self):
         import signals
+        signals.init_signals()

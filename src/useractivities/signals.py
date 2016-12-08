@@ -1,3 +1,6 @@
+from django.db.models.signals import post_save
+
+
 def comment_up(sender, **kwargs):
     if kwargs["created"]:
         instance = kwargs["instance"]
@@ -26,3 +29,9 @@ def base_event_post_save(sender, **kwargs):
         event.save()
         event.users_to_show = event.user.get_friendships()
         event.save()
+
+
+def init_signals():
+    from useractivities.models import BaseEvent
+    for model in BaseEvent.__subclasses__():
+        post_save.connect(base_event_post_save, sender=model, dispatch_uid=model.__name__ + " event signal")
