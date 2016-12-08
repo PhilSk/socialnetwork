@@ -209,6 +209,9 @@ class Event(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         verbose_name = u'Событие'
         verbose_name_plural = u'События'

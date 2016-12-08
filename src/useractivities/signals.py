@@ -1,4 +1,5 @@
 from django.db.models.signals import post_save
+from .tasks import base_event_post_save_task
 
 
 def comment_up(sender, **kwargs):
@@ -20,15 +21,8 @@ def like_up(sender, **kwargs):
 def base_event_post_save(sender, **kwargs):
     if kwargs["created"]:
         instance = kwargs["instance"]
-        from useractivities.models import Event
-        event = Event()
-        event.name = instance.get_event_name()
-        event.user = instance.get_event_author()
-        event.object_id = instance.id
-        event.content_type = instance.get_content_type()
-        event.save()
-        event.users_to_show = event.user.get_friendships()
-        event.save()
+        content_type = instance.get_content_type().id
+        base_event_post_save_task.apply_async(args=[instance.id, content_type])
 
 
 def init_signals():

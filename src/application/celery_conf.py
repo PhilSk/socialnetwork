@@ -1,0 +1,10 @@
+# CELERY SETTINGS ALARMA
+from django.conf import settings
+
+CELERY_BROKER_BACKEND = 'redis'
+CELERY_BROKER_URL = settings.REDIS_URL
+CELERY_RESULT_BACKEND = settings.REDIS_URL
+
+CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24
+
+CELERY_TIMEZONE = 'Europe/Moscow'

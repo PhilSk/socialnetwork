@@ -24,7 +24,7 @@ class PostViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(user=unicode(self.request.user))
+        serializer.save(user=self.request.user)
 
 
 class EventViewSet(viewsets.ModelViewSet):

@@ -159,3 +159,6 @@ from local_settings import *
 
 # My user model
 AUTH_USER_MODEL = 'extuser.ExtUser'
+
+
+REDIS_URL = 'redis://localhost:6379/0'
