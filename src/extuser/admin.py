@@ -27,7 +27,6 @@ class UserAdmin(UserAdmin):
                 (None, {'fields': ('email', 'password')}),
                 ('Personal info', {
                  'fields': (
-                     'avatar',
                      'firstname',
                      'lastname',
                  )}),

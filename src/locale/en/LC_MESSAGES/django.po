@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-25 23:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: pages/templates/pages/base.html:36
+msgid "Профиль"
+msgstr "Profile"
+
+#: pages/templates/pages/base.html:40
+msgid "Пользователи"
+msgstr "Users"
+
+#: pages/templates/pages/base.html:41
+msgid "События"
+msgstr "Events"
+
+#: pages/templates/pages/base.html:42
+msgid "Комментарии"
+msgstr "Comments"
+
+#: pages/templates/pages/base.html:43
+msgid "Посты"
+msgstr "Posts"
+
+#: pages/templates/pages/base.html:44
+msgid "Чаты"
+msgstr "Chats"
+
+#: pages/templates/pages/base.html:45
+#, fuzzy
+#| msgid "Дни рождения"
+msgid "Сообщения"
+msgstr "Messages"
+
+#: pages/templates/pages/base.html:46
+msgid "Друзья"
+msgstr "Friends"
+
+#: pages/templates/pages/base.html:47
+msgid "Фотографии"
+msgstr "Photos"
+
+#: pages/templates/pages/base.html:48
+msgid "Альбомы"
+msgstr "Albums"
+
+#: pages/templates/pages/base.html:49
+msgid "Лайки"
+msgstr "Likes"
+
+#: pages/templates/pages/base.html:50
+msgid "Дни рождения"
+msgstr "Birthday dates"
+
+#: pages/templates/pages/base.html:51
+msgid "Встречи"
+msgstr "Meetings"
+
+#~ msgid "Число комментариев"
+#~ msgstr "Number of comments"
+
+#~ msgid "Число лайков"
+#~ msgstr "Number of likes"
+
+#~ msgid "Лайк"
+#~ msgstr "Like"
+
+#~ msgid "Событие"
+#~ msgstr "Event"
+
+#~ msgid "Заголовок поста"
+#~ msgstr "Heading"
+
+#~ msgid "Текст поста"
+#~ msgstr "Content"
+
+#~ msgid "Создан"
+#~ msgstr "Created at"
+
+#~ msgid "Обновлен"
+#~ msgstr "Updated at"
+
+#~ msgid "Пост"
+#~ msgstr "Post"
+
+#~ msgid "Новый пост от пользователя"
+#~ msgstr "New post from user"
+
+#~ msgid "Текст комментария"
+#~ msgstr "Comment's content"
+
+#~ msgid "Комментарий"
+#~ msgstr "Comment"
+
+#~ msgid "оставил новый комментарий"
+#~ msgstr "left the new comment"
+
+#~ msgid "Описание"
+#~ msgstr "Description"
+
+#~ msgid "Создатель события, увы, ещё не оставил его описания"
+#~ msgstr "Event's creator, alas, hasn't left the description"
+
+#~ msgid "Длительность мероприятия"
+#~ msgstr "Duration of the event"
+
+#~ msgid "Когда"
+#~ msgstr "When"
+
+#~ msgid "Встреча"
+#~ msgstr "Meeting"
+
+#~ msgid "Вы приглашены на новую встречу: "
+#~ msgstr "You are invited on the new meeting: "
+
+#~ msgid "День рождения"
+#~ msgstr "Birthday date"
+
+#~ msgid "Название события"
+#~ msgstr "Event name"
+
+#~ msgid "Создано"
+#~ msgstr "Created at"

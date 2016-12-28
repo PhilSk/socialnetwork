@@ -34,7 +34,7 @@ class Feed extends React.Component {
         });
         return (
             <div>
-                <h2 className="h1">Лента</h2>
+                <h2 className="h1">{gettext('Лента')}</h2>
                 <div className="events">
                     <ul>
                         {show_events}

@@ -2,11 +2,12 @@
 from django.shortcuts import render
 
 # Create your views here.
+from requests import Response
 from rest_framework import viewsets
 from application.serializers import PostSerializer, EventSerializer, CommentSerializer, LikeSerializer, \
-    MeetingSerializer, BirthdaySerializer
+    MeetingSerializer, BirthdaySerializer, PhotoSerializer, AlbumSerializer
 
-from useractivities.models import Post, Event, Comment, Like, Meeting, Birthday
+from useractivities.models import Post, Event, Comment, Like, Meeting, Birthday, Photo, Album
 
 from rest_framework import permissions
 from application.permissions import IsOwnerOrReadOnly
@@ -30,12 +31,13 @@ class PostViewSet(viewsets.ModelViewSet):
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    # permission_classes = ()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     def get_queryset(self):
-        qs = super(EventViewSet, self).get_queryset()
-        qs = self.request.user.event_set.all()
+        qs = self.request.user.get_events()  # используем метод в модели ExtUser (использует кэш)
         return qs
+        # qs = self.queryset
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -56,3 +58,13 @@ class MeetingViewSet(viewsets.ModelViewSet):
 class BirthdayViewSet(viewsets.ModelViewSet):
     queryset = Birthday.objects.all()
     serializer_class = BirthdaySerializer
+
+
+class PhotoViewSet(viewsets.ModelViewSet):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+
+
+class AlbumViewSet(viewsets.ModelViewSet):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer

@@ -2,9 +2,7 @@
 from rest_framework import serializers
 from extuser.models import ExtUser
 
-from useractivities.models import Event, Like, Comment, Birthday, Meeting
-
-from usermedia.models import Album, Photo
+from useractivities.models import Event, Like, Comment, Birthday, Meeting, Photo, Album, BaseEvent
 
 from friendship.models import Friendship
 
@@ -19,10 +17,35 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'avatar', 'friendships', 'firstname', 'lastname', 'email', 'is_staff')
 
 
+class EventRelatedField(serializers.RelatedField):
+    """
+    A custom field to use for the `event_object` generic relationship.
+    """
+
+    def to_representation(self, value):
+        if isinstance(value, BaseEvent):
+            if isinstance(value, Post):
+                serializer = PostSerializer(value)
+            if isinstance(value, Meeting):
+                serializer = MeetingSerializer(value)
+            if isinstance(value, Comment):
+                serializer = CommentSerializer(value)
+            if isinstance(value, Friendship):
+                serializer = FriendshipSerializer(value)
+            if isinstance(value, Photo):
+                serializer = PhotoSerializer(value)
+        else:
+            raise Exception('Unexpected type of event object')
+
+        return serializer.data
+
+
 class EventSerializer(serializers.ModelSerializer):
+    content_object = EventRelatedField(read_only=True)
+
     class Meta:
         model = Event
-        fields = ('id', 'user', 'name', 'users_to_show', 'content_type')
+        fields = ('id', 'user', 'name', 'users_to_show', 'content_type', 'object_id', 'content_object')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -72,7 +95,10 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('pk', 'user', 'title', 'content', 'created_at', 'updated_at', 'count_likes', 'count_comments')
+        fields = (
+            'pk', 'user', 'title', 'content', 'created_at',
+            'updated_at', 'attachment', 'count_likes', 'count_comments'
+        )
 
 
 class BirthdaySerializer(serializers.ModelSerializer):

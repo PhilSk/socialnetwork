@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for application project.
 
@@ -11,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _l
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,13 +20,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0_=r^h)44-*vof()g1+zm+i3r12eni*ntp((72l(nr+7v%3l@h'
+# secure config
+
+from ConfigParser import ConfigParser
+config = ConfigParser()
+config.read(os.path.join(BASE_DIR, '../spades.conf'))
+
+SECRET_KEY = config.get('main', 'SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "10.0.3.2"
+]
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.vk.VKOAuth2',
@@ -44,9 +54,9 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 MY_APPS = [
     'extuser',
-    'usermedia',
     'useractivities',
     'rest_framework',
+    'rest_framework.authtoken',
     'chat',
     'friendship',
     'pages',
@@ -64,9 +74,18 @@ DJANGO_APPS = [
     'oauth2_provider',
     'corsheaders',
     'bootstrapform',
+    'debug_toolbar',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
+
+# remember to run server!
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
@@ -78,7 +97,8 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+        'rest_framework.permissions.IsAuthenticated'
+    ],
 }
 
 MIDDLEWARE = [
@@ -90,6 +110,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -142,10 +164,57 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Logging preferences
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'tofile': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'INFOLOG'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'extuser': {
+            'handlers': ['console', 'tofile'],
+            'level': 'INFO',
+            'formatter': 'simple',
+        },
+        'useractivities': {
+            'handlers': ['console', 'tofile'],
+            'level': 'INFO',
+            'formatter': 'simple',
+        }
+    },
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
+
+LANGUAGES = [
+    ('en', _l(u'Английский')),
+    ('ru', _l(u'Русский'))
+]
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 TIME_ZONE = 'UTC'
 
