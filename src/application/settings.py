@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 from ConfigParser import ConfigParser
 config = ConfigParser()
-config.read(os.path.join(BASE_DIR, '../spades.conf'))
+config.read(os.path.join(BASE_DIR, '../django.conf'))
 
 SECRET_KEY = config.get('main', 'SECRET')
 
